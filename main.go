@@ -3,11 +3,13 @@ package main
 import (
 	"Go_Quiz_Manager/loader"
 	"Go_Quiz_Manager/models"
+	"Go_Quiz_Manager/utils"
 	"fmt"
 	"strings"
 )
 
-type Question models.Question
+// Question - creating type alias here
+type Question = models.Question
 
 func main() {
 
@@ -17,7 +19,7 @@ func main() {
 	questionsList := loader.LoadQuestions(fileName)
 
 	// shuffle the questions list
-	questionsList = loader.ShuffleQuestions(questionsList)
+	questionsList = utils.ShuffleQuestions(questionsList)
 
 	// for each question in the question list, I print out the question, and then I ask the user
 	// about the answer to the question
@@ -33,7 +35,9 @@ func main() {
 
 	fmt.Println("Welcome to Go quiz....")
 
-	fmt.Println("Answer the following questions.\n")
+	fmt.Println("Answer the following questions.")
+
+	fmt.Println()
 
 	for idx, question := range questionsList {
 		fmt.Printf("%d. %s = ", idx+1, question.Name)

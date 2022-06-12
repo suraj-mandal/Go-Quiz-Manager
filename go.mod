@@ -6,7 +6,10 @@ replace Go_Quiz_Manager/loader => ./loader
 
 replace Go_Quiz_Manager/models => ./models
 
+replace Go_Quiz_Manager/utils => ./utils
+
 require (
 	Go_Quiz_Manager/loader v0.0.0-00010101000000-000000000000
 	Go_Quiz_Manager/models v0.0.0-00010101000000-000000000000
+	Go_Quiz_Manager/utils v0.0.0-00010101000000-000000000000
 )

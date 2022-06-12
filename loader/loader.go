@@ -1,3 +1,5 @@
+// Package loader provides the utilities of loading the questions from the file as
+// well as utilities regarding shuffling the questions list
 package loader
 
 import (
@@ -5,11 +7,11 @@ import (
 	"encoding/csv"
 	"io"
 	"log"
-	"math/rand"
 	"os"
 )
 
-type Question models.Question
+// Question - importing the Question model
+type Question = models.Question
 
 func loadFile(fileName string) io.Reader {
 	directoryName := "./data/"
@@ -18,16 +20,6 @@ func loadFile(fileName string) io.Reader {
 		log.Fatal("The file could not be opened")
 	}
 	return file
-}
-
-func ShuffleQuestions(questionList []Question) []Question {
-	totalQuestions := len(questionList)
-	shuffledList := make([]Question, totalQuestions)
-	shuffledIndexes := rand.Perm(totalQuestions)
-	for idx, shuffledIdx := range shuffledIndexes {
-		shuffledList[shuffledIdx] = questionList[idx]
-	}
-	return shuffledList
 }
 
 func LoadQuestions(fileName string) []Question {
