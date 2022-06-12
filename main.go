@@ -1,49 +1,23 @@
 package main
 
 import (
-	"encoding/csv"
+	"Go_Quiz_Manager/loader"
+	"Go_Quiz_Manager/models"
 	"fmt"
-	"io"
-	"log"
-	"os"
 	"strings"
 )
 
-type Question struct {
-	name   string
-	answer string
-}
+type Question models.Question
 
 func main() {
 
-	// reading the csv file and storing it in the io.reader object along with the error
-	f, err := os.OpenFile("./data/test1.csv", os.O_RDONLY, 0755)
-	// if error is not null then file could not be opened
-	if err != nil {
-		log.Fatal("The file could not be opened in read mode")
-	}
+	fileName := "test1.csv"
 
-	// creating a new csv reader to read the file contents
-	reader := csv.NewReader(f)
+	// load the questions from the file name
+	questionsList := loader.LoadQuestions(fileName)
 
-	// will store the list of questions
-	var questionsList []Question
-
-	// iterating through each row in the reader object
-	for {
-		record, err := reader.Read()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			log.Fatal("Error parsing the file")
-		}
-
-		question, answer := record[0], record[1]
-
-		questionsList = append(questionsList, Question{name: question, answer: answer})
-
-	}
+	// shuffle the questions list
+	questionsList = loader.ShuffleQuestions(questionsList)
 
 	// for each question in the question list, I print out the question, and then I ask the user
 	// about the answer to the question
@@ -62,7 +36,7 @@ func main() {
 	fmt.Println("Answer the following questions.\n")
 
 	for idx, question := range questionsList {
-		fmt.Printf("%d. %s = ", idx+1, question.name)
+		fmt.Printf("%d. %s = ", idx+1, question.Name)
 		// getting the input from the user
 		var userInput string
 		_, err := fmt.Scanln(&userInput)
@@ -73,13 +47,13 @@ func main() {
 		userInput = strings.Trim(userInput, " ")
 
 		// if the user input matches the answer then increment correct by 1
-		if strings.EqualFold(userInput, question.answer) {
+		if strings.EqualFold(userInput, question.Answer) {
 			correct++
 		}
 	}
 
 	// finally getting the results
 	percentageCorrect := float32(correct*100.0) / float32(total)
-	fmt.Printf("Your score: %.2f\n", percentageCorrect)
+	fmt.Printf("\nYour score: %.2f\n", percentageCorrect)
 
 }
