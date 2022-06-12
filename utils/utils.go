@@ -5,6 +5,7 @@ package utils
 import (
 	"Go_Quiz_Manager/models"
 	"math/rand"
+	"time"
 )
 
 // Question model
@@ -14,6 +15,10 @@ type Question = models.Question
 // randomizes the indexes of the list and then creates a new list
 // with randomized indexes
 func ShuffleQuestions(questionList []Question) []Question {
+
+	// setting a random seed here
+	rand.Seed(time.Now().UnixNano())
+
 	totalQuestions := len(questionList)
 	shuffledList := make([]Question, totalQuestions)
 	// randomizing the indexes

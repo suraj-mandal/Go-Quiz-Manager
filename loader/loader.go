@@ -14,7 +14,7 @@ import (
 type Question = models.Question
 
 func loadFile(fileName string) io.Reader {
-	directoryName := "./data/"
+	directoryName := "./csv/"
 	file, err := os.OpenFile(directoryName+fileName, os.O_RDONLY, 0755)
 	if err != nil {
 		log.Fatal("The file could not be opened")
